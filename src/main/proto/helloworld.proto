@@ -1,0 +1,28 @@
+syntax="proto3";
+option java_package="demo.rpc.grpc";
+
+package demo.rpc.grpc;
+
+// 定义grpc服务
+service Greeter {
+    // 定义单向的rpc
+    rpc sayHello(HelloRequest) returns(HelloBody) {}
+
+    // 定义服务端流式rpc
+    rpc sayHelloServere(HelloRequest) returns (stream HelloBody){}
+
+    rpc sayHelloClient(stream HelloRequest) returns (HelloBody){}
+
+    // 双向流式rpc
+    rpc sayHelloChat(stream HelloRequest) returns (stream HelloBody){}
+}
+
+// 定义请求参数格式，只包含一个name属性
+message HelloRequest {
+    string name = 1;
+}
+
+// 定义返回参数格式，只包含一个message属性
+message HelloBody {
+    string message = 1;
+}
